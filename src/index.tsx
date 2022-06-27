@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, View, ViewProps } from 'react-native';
+import { ImageProps, Text, View, ViewProps } from 'react-native';
 
 interface PureCarouselProps extends ViewProps {
-  name?: string;
+  images: ImageProps[];
 }
-const PureCarousel: React.FC<PureCarouselProps> = ({ name, ...props }) => {
+const PureCarousel: React.FC<PureCarouselProps> = ({ ...props }) => {
   return (
     <View {...props}>
-      <Text>Hello {name}</Text>
+      <Text>Hello</Text>
     </View>
   );
 };
