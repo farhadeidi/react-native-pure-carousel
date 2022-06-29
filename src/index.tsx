@@ -1,15 +1,11 @@
 import React from 'react';
-import { ImageProps, Text, View, ViewProps } from 'react-native';
+import type { PureCarouselProps } from './PureCarousel';
+import PureCarousel from './PureCarousel';
+import Pagination from './Pagination';
 
-interface PureCarouselProps extends ViewProps {
-  images: ImageProps[];
-}
-const PureCarousel: React.FC<PureCarouselProps> = ({ ...props }) => {
-  return (
-    <View {...props}>
-      <Text>Hello</Text>
-    </View>
-  );
+const PureCarouselWrapper: React.FC<PureCarouselProps> = ({ ...props }) => {
+  return <PureCarousel {...props} />;
 };
 
-export default PureCarousel;
+export { PureCarouselWrapper as PureCarousel, Pagination };
+export default PureCarouselWrapper;
