@@ -2,6 +2,18 @@ import React from 'react';
 import { View } from 'react-native';
 import PureCarousel from 'react-native-pure-carousel';
 
+const images = [
+  { source: require('./assets/thumbnails/netherlands.jpg') },
+  { source: require('./assets/thumbnails/berlin.jpg') },
+  { source: require('./assets/thumbnails/england.jpg') },
+  { source: require('./assets/thumbnails/fiji.jpg') },
+  { source: require('./assets/thumbnails/france.jpg') },
+  { source: require('./assets/thumbnails/japan.jpg') },
+  { source: require('./assets/thumbnails/singapore.jpg') },
+  { source: require('./assets/thumbnails/thailand.jpg') },
+  { source: require('./assets/thumbnails/usa.jpg') },
+];
+
 export default function App() {
   return (
     <View
@@ -12,26 +24,7 @@ export default function App() {
         paddingTop: 100,
       }}
     >
-      <PureCarousel
-        onPress={(index) => {
-          console.log(index);
-        }}
-        images={[
-          { source: require('./assets/thumbnails/netherlands.jpg') },
-          { source: require('./assets/thumbnails/berlin.jpg') },
-          { source: require('./assets/thumbnails/england.jpg') },
-          { source: require('./assets/thumbnails/fiji.jpg') },
-          { source: require('./assets/thumbnails/france.jpg') },
-          { source: require('./assets/thumbnails/japan.jpg') },
-          { source: require('./assets/thumbnails/singapore.jpg') },
-          { source: require('./assets/thumbnails/thailand.jpg') },
-          { source: require('./assets/thumbnails/usa.jpg') },
-        ]}
-        // width={300}
-        // height={180}
-        // style={{ borderRadius: 10 }}
-        // paginationProps={{ mode: 'circle' }}
-      />
+      <PureCarousel images={images} />
     </View>
   );
 }

@@ -1,11 +1,10 @@
-import type { Animated, ViewProps } from 'react-native';
+export type PureCarouselRef = {
+  goNext: () => void;
+  goPrev: () => void;
+  goToIndex: (index: number) => void;
+} | null;
 
-export interface IndicatorsProps extends ViewProps {
-  horizontalAnimatedScrollPosition: Animated.Value;
-  itemsCount: number;
-  containerWidth?: number;
-  gutterSize?: number;
-  height?: number;
-  backgroundColor?: string;
-  activeBackgroundColor?: string;
-}
+export type ModalRef = {
+  openModal: (index: number) => void;
+  closeModal: () => void;
+} | null;
