@@ -1,23 +1,23 @@
 import React, { useRef } from 'react';
-import {
-  Animated,
-  Image,
-  ImageProps,
-  Pressable,
-  ScrollView,
-} from 'react-native';
+import { Animated, Image, Pressable, ScrollView } from 'react-native';
+import type { PureImageProps } from './PureCarousel';
 
-interface ImageComponentProps extends ImageProps {
+interface ImageComponentProps extends PureImageProps {
   onPress?: (index: number) => void;
   imageIndex?: number;
   width: number;
   height: number;
+  preferOriginal?: boolean;
 }
+
 const ImageComponent: React.FC<ImageComponentProps> = ({
   width,
   height,
   imageIndex,
   onPress,
+  source,
+  originalSource,
+  preferOriginal,
   ...props
 }) => {
   const scrollViewRef = useRef<ScrollView>(null);
@@ -49,7 +49,11 @@ const ImageComponent: React.FC<ImageComponentProps> = ({
             : undefined
         }
       >
-        <Image resizeMode="cover" {...props} />
+        <Image
+          resizeMode="cover"
+          source={preferOriginal ? originalSource || source : source}
+          {...props}
+        />
       </Pressable>
     </Animated.ScrollView>
   );

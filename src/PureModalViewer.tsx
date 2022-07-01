@@ -26,8 +26,6 @@ const PureModalViewer = React.forwardRef<any, PureModalViewerProps>(
       isOpen: false,
     });
 
-    console.log('modalConfigs', modalConfigs);
-
     const openModal = (index = 0) => {
       setModalConfigs({
         index,
@@ -68,6 +66,7 @@ const PureModalViewer = React.forwardRef<any, PureModalViewerProps>(
               showPagination={false}
               imageConfigs={{ resizeMode: 'contain' }}
               initialIndex={modalConfigs.index || 0}
+              preferOriginal
               onChangeIndex={(index) => {
                 setModalConfigs({ ...modalConfigs, index });
               }}

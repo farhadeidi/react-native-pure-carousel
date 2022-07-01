@@ -3,6 +3,7 @@ import {
   Animated,
   FlatList,
   ImageProps,
+  ImageSourcePropType,
   NativeScrollEvent,
   NativeSyntheticEvent,
   useWindowDimensions,
@@ -12,9 +13,13 @@ import {
 import ImageComponent from './ImageComponent';
 import Pagination, { PaginationProps } from './Pagination';
 
+export interface PureImageProps extends ImageProps {
+  originalSource?: ImageSourcePropType;
+}
 export interface PureCarouselProps extends ViewProps {
-  images: ImageProps[];
-  imageConfigs?: Partial<ImageProps>;
+  images: PureImageProps[];
+  imageConfigs?: Partial<PureImageProps>;
+  preferOriginal?: boolean;
   onImagePress?: (index: number) => void;
   width?: number;
   height?: number;
@@ -36,6 +41,7 @@ const PureCarousel = React.forwardRef<any, PureCarouselProps>(
       imageConfigs,
       onImagePress,
       onChangeIndex,
+      preferOriginal,
       ...props
     },
     ref
@@ -125,6 +131,7 @@ const PureCarousel = React.forwardRef<any, PureCarouselProps>(
                 imageIndex={index}
                 width={width}
                 height={height}
+                preferOriginal={preferOriginal}
                 style={[{ width, height }, imageConfigs?.style, item.style]}
               />
             );
