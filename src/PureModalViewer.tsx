@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import {
   ImageProps,
   Modal,
-  Text,
-  TouchableOpacity,
+  SafeAreaView,
+  StatusBar,
   useWindowDimensions,
   View,
   ViewProps,
 } from 'react-native';
+import CloseButton from './CloseButton';
+import ModalHeader from './components/ModalHeader';
 import PureCarousel from './PureCarousel';
-
-let initialIndex = 0;
 
 interface PureModalViewerProps extends ViewProps {
   images: ImageProps[];
@@ -20,17 +20,28 @@ interface PureModalViewerProps extends ViewProps {
 
 const PureModalViewer = React.forwardRef<any, PureModalViewerProps>(
   ({ images, onModalClose, ...props }, ref) => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const dimensions = useWindowDimensions();
+    const [modalConfigs, setModalConfigs] = useState({
+      index: 0,
+      isOpen: false,
+    });
+
+    console.log('modalConfigs', modalConfigs);
 
     const openModal = (index = 0) => {
-      initialIndex = index;
-      setIsModalVisible(true);
+      setModalConfigs({
+        index,
+        isOpen: true,
+      });
     };
 
     const closeModal = () => {
-      setIsModalVisible(false);
-      onModalClose(initialIndex);
+      setModalConfigs({
+        ...modalConfigs,
+        isOpen: false,
+      });
+
+      onModalClose(modalConfigs.index);
     };
 
     React.useImperativeHandle(ref, () => ({
@@ -43,45 +54,49 @@ const PureModalViewer = React.forwardRef<any, PureModalViewerProps>(
         <Modal
           animationType="slide"
           transparent={false}
-          visible={isModalVisible}
+          visible={modalConfigs.isOpen}
           onRequestClose={() => {
             closeModal();
           }}
         >
-          <View style={{ flex: 1, backgroundColor: '#334155' }}>
+          <View style={{ flex: 1, backgroundColor: '#000000' }}>
+            <StatusBar barStyle="light-content" />
+            <PureCarousel
+              images={images}
+              width={dimensions.width}
+              height={dimensions.height}
+              showPagination={false}
+              imageConfigs={{ resizeMode: 'contain' }}
+              initialIndex={modalConfigs.index || 0}
+              onChangeIndex={(index) => {
+                setModalConfigs({ ...modalConfigs, index });
+              }}
+            />
             <View
               style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                left: 0,
               }}
             >
-              <TouchableOpacity
+              <SafeAreaView
                 style={{
-                  position: 'absolute',
-                  top: 100,
-                  right: 30,
-                  zIndex: 99,
-                }}
-                onPress={() => {
-                  closeModal();
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
                 }}
               >
-                <Text>Close</Text>
-              </TouchableOpacity>
-              {isModalVisible && (
-                <PureCarousel
-                  images={images}
-                  width={dimensions.width}
-                  height={dimensions.height}
-                  showPagination={false}
-                  imageConfigs={{ resizeMode: 'contain' }}
-                  initialIndex={initialIndex}
-                  onChangeIndex={(index) => {
-                    initialIndex = index;
-                  }}
-                />
-              )}
+                <ModalHeader style={{ padding: 16 }}>
+                  <CloseButton
+                    onPress={() => {
+                      closeModal();
+                    }}
+                  />
+                </ModalHeader>
+                {/* <View style={{ padding: 16 }}>
+                </View> */}
+              </SafeAreaView>
             </View>
           </View>
         </Modal>

@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import PureCarousel from 'react-native-pure-carousel';
 
-const images = [
+const localImages = [
   { source: require('./assets/thumbnails/netherlands.jpg') },
   { source: require('./assets/thumbnails/berlin.jpg') },
   { source: require('./assets/thumbnails/england.jpg') },
@@ -24,7 +24,7 @@ export default function App() {
         paddingTop: 100,
       }}
     >
-      <PureCarousel images={images} />
+      <PureCarousel images={localImages} />
     </View>
   );
 }

@@ -52,13 +52,10 @@ const PureCarousel = React.forwardRef<any, PureCarouselProps>(
     const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
       const index = Math.round(e.nativeEvent.contentOffset.x / width);
       setCurrentIndex(index);
-    };
-
-    React.useEffect(() => {
       if (onChangeIndex) {
-        onChangeIndex(currentIndex);
+        onChangeIndex(index);
       }
-    }, [currentIndex]);
+    };
 
     const goNext = () => {
       if (currentIndex < images.length - 1) {
